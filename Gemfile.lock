@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/gauravtiwari/facebook-messenger.git
+  revision: 2bf869c679b5e5c2461e1282ead9d8cccbbab5fa
+  specs:
+    facebook-messenger (0.4.2)
+      httparty (~> 0.13.7)
+      rack (>= 1.6.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -52,12 +60,14 @@ GEM
     debug_inspector (0.0.2)
     erubis (2.7.0)
     execjs (2.6.0)
-    facebook-messenger (0.1.0)
     ffi (1.9.10)
     figaro (1.1.1)
       thor (~> 0.14)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -80,7 +90,8 @@ GEM
     mime-types-data (3.2016.0221)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
-    multi_json (1.11.3)
+    multi_json (1.12.0)
+    multi_xml (0.5.5)
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
@@ -110,6 +121,11 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.0.0.beta4)
       actionpack (= 5.0.0.beta4)
       activesupport (= 5.0.0.beta4)
@@ -162,7 +178,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
-  facebook-messenger
+  facebook-messenger!
   figaro
   jbuilder (~> 2.0)
   jquery-rails
@@ -170,6 +186,7 @@ DEPENDENCIES
   pg (~> 0.18)
   puma (~> 3.0)
   rails (>= 5.0.0.beta4, < 5.1)
+  rails_12factor
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
