@@ -10,11 +10,17 @@ Bot.on :message do |message|
 end
 =======
 class ProductBot
-  def buy(postback)
-    payload = JSON.parse(postback.payload)
 
+  attr_accessor :sender, :payload
+
+  def initialize(sender, payload)
+    @sender = sender
+    @payload = payload
+  end
+
+  def buy
     Bot.deliver(
-      recipient: postback.sender,
+      recipient: sender,
       message: {
         attachment: {
           type: 'template',
@@ -72,6 +78,7 @@ class ProductBot
   end
 >>>>>>> 8343e37... Add buy reciept
 
+<<<<<<< HEAD
 Bot.on :postback do |postback|
   case postback.payload
   when 'accessories'
@@ -82,15 +89,32 @@ Bot.on :postback do |postback|
     suggest(postback)
   else
     send_product_image(postback)
+=======
+  def end_chat
+    Bot.deliver(
+      recipient: sender,
+      message: {
+        text: 'Bye! see you another time'
+      }
+    )
+>>>>>>> 148f114... Refactor class
   end
 end
 
+<<<<<<< HEAD
 def ask(sender)
   Bot.deliver(
     recipient: sender,
     message: {
       attachment: {
         type: 'template',
+=======
+  def ask
+    buttons = Product.pluck(:category).uniq.map do |category|
+      {
+        type: 'postback',
+        title: category.capitalize,
+>>>>>>> 148f114... Refactor class
         payload: {
           template_type: 'button',
           text: "What are you looking for?",
@@ -157,9 +181,26 @@ def suggest(postback)
     end
   end
 
+<<<<<<< HEAD
 
+<<<<<<< HEAD
   def send_product_image(postback)
     product = Product.find(postback.payload)
+=======
+def send_product_image(postback)
+  product = Product.find(postback.payload)
+=======
+  def suggest
+    products = Product.where(category: payload['category']).order('RANDOM()')
+
+    Bot.deliver(
+      recipient: sender,
+      message: {
+        text: "Here are some new arrivals in: #{payload['category']}"
+      }
+    )
+>>>>>>> 148f114... Refactor class
+>>>>>>> 957e80f... Refactor class
 
 <<<<<<< HEAD
     Bot.deliver(
@@ -181,7 +222,7 @@ def suggest(postback)
 =======
 >>>>>>> a3ed5fd... Add to json for products
     Bot.deliver(
-      recipient: postback.sender,
+      recipient: sender,
       message: {
         attachment: {
 <<<<<<< HEAD
@@ -198,6 +239,7 @@ def suggest(postback)
 >>>>>>> a3ed5fd... Add to json for products
         }
       }
+<<<<<<< HEAD
     )
   end
 
@@ -217,4 +259,38 @@ def suggest(postback)
       send_product_image(postback)
     end
   end
+=======
+<<<<<<< HEAD
+    }
+  )
+=======
+    )
+  end
+end
+
+def valid?(json)
+  JSON.parse(json)
+  return true
+rescue StandardError
+  return false
+end
+
+Bot.on :message do |message|
+  bot = ProductBot.new(message.sender, message.text)
+  bot.ask(message.sender)
+end
+
+Bot.on :postback do |postback|
+  payload = postback.payload
+  parsed_payload = valid?(payload) ? JSON.parse(payload) : payload
+
+  bot = ProductBot.new(postback.sender, parsed_payload)
+
+  if parsed_payload && parsed_payload['id']
+    bot.send(parsed_payload['id'])
+  else
+    bot.send(parsed_payload)
+  end
+>>>>>>> 148f114... Refactor class
+>>>>>>> 957e80f... Refactor class
 end
