@@ -1,24 +1,11 @@
-# README
+# Facebook Messenger Demo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A demo chat bot running on heroku. For actual interaction, try messaging on this page: https://www.facebook.com/chatbotmessenger/
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+git clone git@github.com:hyperoslo/facebook-messenger-demo.git
+cd facebook-messenger-demo
+bundle install
+bundle exec rake db:migrate db:create db:seed
+bundle exec rails s
+```
