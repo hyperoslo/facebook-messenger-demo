@@ -1,5 +1,52 @@
+<<<<<<< HEAD
 class ProductBot
   def ask(sender)
+=======
+include Facebook::Messenger
+
+Bot.on :message do |message|
+  ask(message.sender)
+end
+
+Bot.on :postback do |postback|
+  case postback.payload
+  when 'accessories'
+    suggest(postback)
+  when 'clothing'
+    suggest(postback)
+  when 'footwear'
+    suggest(postback)
+  else
+    send_product_image(postback)
+  end
+end
+
+def ask(sender)
+  Bot.deliver(
+    recipient: sender,
+    message: {
+      attachment: {
+        type: 'template',
+        payload: {
+          template_type: 'button',
+          text: "What are you looking for?",
+          buttons: Product.pluck(:category).uniq.map {|category|
+            {
+              type: 'postback',
+              title: category.capitalize,
+              payload: category
+            }
+          }
+        }
+      }
+    }
+  )
+end
+
+def suggest(postback)
+  products = Product.where(category: postback.payload).order('RANDOM()')
+  products.each do |product|
+>>>>>>> 112853d... include bot module
     Bot.deliver(
       recipient: sender,
       message: {
