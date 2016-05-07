@@ -161,6 +161,7 @@ def suggest(postback)
   def send_product_image(postback)
     product = Product.find(postback.payload)
 
+<<<<<<< HEAD
     Bot.deliver(
       recipient: postback.sender,
       message: {
@@ -168,14 +169,33 @@ def suggest(postback)
       }
     )
 
+=======
+<<<<<<< HEAD
+  Bot.deliver(
+    recipient: postback.sender,
+    message: {
+      attachment: {
+        type: 'image',
+        payload: {
+          url: product.image
+=======
+>>>>>>> a3ed5fd... Add to json for products
     Bot.deliver(
       recipient: postback.sender,
       message: {
         attachment: {
+<<<<<<< HEAD
           type: 'image',
           payload: {
             url: product.image
           }
+=======
+          type: 'generic',
+          payload: {
+            elements: elements.to_json
+          }
+>>>>>>> 3ff8110... Add to json for products
+>>>>>>> a3ed5fd... Add to json for products
         }
       }
     )
