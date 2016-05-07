@@ -20,8 +20,13 @@ class ProductBot
           type: 'template',
           payload: {
             template_type: 'receipt',
+<<<<<<< HEAD
             recipient_name: postback.sender,
             order_number: postback.sender,
+=======
+            recipient_name: 'John Doe',
+            order_number: SecureRandom.random_number(10000000).to_s,
+>>>>>>> 15c252e... Fix order number
             currency: 'GBP',
             payment_method: "Visa 2345",
             order_url: "http://petersapparel.parseapp.com/order?order_id=123456",
