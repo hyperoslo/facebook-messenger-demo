@@ -4,9 +4,68 @@ class ProductBot
 =======
 include Facebook::Messenger
 
+<<<<<<< HEAD
 Bot.on :message do |message|
   ask(message.sender)
 end
+=======
+class ProductBot
+  def buy(postback)
+    payload = JSON.parse(postback.payload)
+
+    Bot.deliver(
+      recipient: postback.sender,
+      message: {
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'receipt',
+            recipient_name: postback.sender,
+            order_number: postback.sender,
+            currency: 'GBP',
+            payment_method: "Visa 2345",
+            order_url: "http://petersapparel.parseapp.com/order?order_id=123456",
+            timestamp: Time.now,
+            elements:[
+              {
+                title: payload["product_name"],
+                subtitle: payload["product_name"],
+                quantity: 2,
+                price: 50,
+                currency: "GBP",
+                image_url: payload["product_image"]
+              },
+            ],
+            address:{
+              street_1: "1 Hacker Way",
+              street_2: "Coding program",
+              city: "Menlo Park",
+              postal_code: "94025",
+              state: "CA",
+              country: "GB"
+            },
+            summary:{
+              subtotal: 75.00,
+              shipping_cost: 4.95,
+              total_tax: 6.19,
+              total_cost: 56.14
+            },
+            adjustments:[
+              {
+                name: "New Customer Discount",
+                amount: 20
+              },
+              {
+                name: "$10 Off Coupon",
+                amount: 10
+              }
+            ]
+          }
+        }
+      }
+    )
+  end
+>>>>>>> 8343e37... Add buy reciept
 
 Bot.on :postback do |postback|
   case postback.payload
