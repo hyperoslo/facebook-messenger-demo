@@ -30,7 +30,7 @@ gem 'jbuilder', '~> 2.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'facebook-messenger', github: 'gauravtiwari/facebook-messenger'
+gem 'facebook-messenger', github: 'hyperoslo/facebook-messenger'
 gem 'figaro'
 
 gem 'rails_12factor', group: :production
