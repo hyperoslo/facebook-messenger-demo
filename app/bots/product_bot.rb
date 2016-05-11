@@ -1,5 +1,5 @@
-include Facebook::Messenger
 require 'json'
+include Facebook::Messenger
 
 class ProductBot
 
@@ -140,6 +140,18 @@ class ProductBot
   end
 end
 
+def get_sender_profile(sender)
+  request = HTTParty.get(
+    "https://graph.facebook.com/v2.6/#{sender['id']}",
+    query: {
+      access_token: ENV['ACCESS_TOKEN'],
+      fields: 'first_name,last_name,gender,profile_pic'
+    }
+  )
+
+  request.parsed_response
+end
+
 def valid?(json)
   JSON.parse(json)
   return true
@@ -149,6 +161,10 @@ end
 
 Bot.on :message do |message|
   bot = ProductBot.new(message.sender, message.text)
+  sender = get_sender_profile(message.sender)
+  puts "*************************"
+  puts sender.inspect
+  puts "*************************"
   bot.ask
 end
 
